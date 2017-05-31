@@ -1,7 +1,7 @@
-{Собcтвенные исправления:
-  - добавлены изменения для совместимости с Delphi 2009/2010
+{РЎРѕР±cС‚РІРµРЅРЅС‹Рµ РёСЃРїСЂР°РІР»РµРЅРёСЏ:
+  - РґРѕР±Р°РІР»РµРЅС‹ РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ Delphi 2009/2010
     
-(и поставлен комментарий //изменено GoldMedium)}
+(Рё РїРѕСЃС‚Р°РІР»РµРЅ РєРѕРјРјРµРЅС‚Р°СЂРёР№ //РёР·РјРµРЅРµРЅРѕ GoldMedium)}
 
 {*******************************************************************}
 {                                                                   }
@@ -206,7 +206,7 @@ type
       var OnlyFormula: string): boolean;
     //
     procedure LinkedItemsOfObj(Item: TxlOptionItem; List: TList);
-    procedure LinkedItemsOfNames(Item: TxlOptionItem; const ANames: AnsiString; //изменено GoldMedium - D2009/D2010
+    procedure LinkedItemsOfNames(Item: TxlOptionItem; const ANames: AnsiString; //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
       const AxlObjects: TxlObjectSet; IncludeSameColumn: boolean; List: TList);
     //
     function ExistsOfxlObj(AxlObjects: TxlObjectSet;
@@ -847,7 +847,7 @@ begin
         List.Add(Items[i]);
 end;
 
-procedure TxlOptionItemList.LinkedItemsOfNames(Item: TxlOptionItem; const ANames: AnsiString; //изменено GoldMedium - D2009/D2010
+procedure TxlOptionItemList.LinkedItemsOfNames(Item: TxlOptionItem; const ANames: AnsiString; //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
   const AxlObjects: TxlObjectSet; IncludeSameColumn: boolean; List: TList);
 var
   i: integer;
@@ -858,7 +858,7 @@ begin
       if (Item <> Items[i]) and Items[i].Enabled and
         ( ([Items[i].xlObject] * AxlObjects <> [])) and
         (pos(delOption + Items[i].Option.Name + delOption,
-        delOption + string(ANames) + delOption) > 0) then //изменено GoldMedium - D2009/D2010
+        delOption + string(ANames) + delOption) > 0) then //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
       begin
         Allow := false;
         case Item.xlObject of
@@ -920,7 +920,7 @@ end;
 
 function TxlOptionPackage.GetAbout: string;
 begin
-  Result := PackageName + ' ' + PackageVersion + '   - Copyright © ' + PackageAuthor;
+  Result := PackageName + ' ' + PackageVersion + '   - Copyright В© ' + PackageAuthor;
 end;
 
 procedure TxlOptionPackage.AddOptionClasses(Arr: array of TClass);

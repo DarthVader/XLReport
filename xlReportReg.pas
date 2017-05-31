@@ -1,7 +1,7 @@
-{Собcтвенные исправления:
-  - добавлены изменения не мои, но добавил, т.к. похоже они полезные
+{вЂ”РѕР±cС‚РІРµРЅРЅС‹Рµ РёСЃРїСЂР°РІР»РµРЅРёВ¤:
+  - РґРѕР±Р°РІР»РµРЅС‹ РёР·РјРµРЅРµРЅРёВ¤ РЅРµ РјРѕРё, РЅРѕ РґРѕР±Р°РІРёР», С‚.Рє. РїРѕС…РѕР¶Рµ РѕРЅРё РїРѕР»РµР·РЅС‹Рµ
     
-(и поставлен комментарий //изменено NoName)}
+(Рё РїРѕСЃС‚Р°РІР»РµРЅ РєРѕРјРјРµРЅС‚Р°СЂРёР№ //РёР·РјРµРЅРµРЅРѕ NoName)}
 
 {*******************************************************************}
 {                                                                   }
@@ -53,7 +53,7 @@ uses Classes, Forms, SysUtils, FileCtrl, Dialogs,
   DesignIntf, DesignEditors,
 {$ENDIF}
 {$ENDIF}
-  ExptIntf, xlcOPack, xlcClasses, xlReport, xlReportG2, xlAbout, ToolsAPI; //изменено NoName
+  ExptIntf, xlcOPack, xlcClasses, xlReport, xlReportG2, xlAbout, ToolsAPI; //РёР·РјРµРЅРµРЅРѕ NoName
 
 type
 
@@ -150,7 +150,7 @@ implementation
 
 procedure Register;
 begin
-  Classes.RegisterComponents('XL Report', [TxlReport, TxlReportG2]); //изменено NoName
+  Classes.RegisterComponents('XL Report', [TxlReport, TxlReportG2]); //РёР·РјРµРЅРµРЅРѕ NoName
   RegisterComponentEditor(TxlReport, TxlrEditor);
   RegisterComponentEditor(TxlReportG2, TxlrEditorG2);
   RegisterPropertyEditor(TypeInfo(String), TxlReport, 'XLSTemplate', TxlrFileNameEditor);
@@ -214,7 +214,7 @@ begin
   s1 := GetCurrentDir;
   try
     if trim(r.XLSTemplate) <> '' then begin
-      CurrentDir := ExtractFilePath(GetActiveProject.FileName); //изменено NoName
+      CurrentDir := ExtractFilePath(GetActiveProject.FileName); //РёР·РјРµРЅРµРЅРѕ NoName
       SetCurrentDir(CurrentDir);
       if pos('..\', r.XLSTemplate) <> 0 then begin
         r.XLSTemplate := ExpandFileName(r.XLSTemplate);
@@ -427,7 +427,7 @@ begin
   s1 := GetCurrentDir;
   try
     if trim(r.XLSTemplate) <> '' then begin
-      CurrentDir := ExtractFilePath(GetActiveProject.FileName); //изменено NoName
+      CurrentDir := ExtractFilePath(GetActiveProject.FileName); //РёР·РјРµРЅРµРЅРѕ NoName
       SetCurrentDir(CurrentDir);
       if pos('..\', r.XLSTemplate) <> 0 then begin
         r.XLSTemplate := ExpandFileName(r.XLSTemplate);
