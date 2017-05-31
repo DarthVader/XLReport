@@ -1,38 +1,38 @@
-{Собcтвенные исправления:
- 1. в процедуре class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string)
-    добавлена возможность объединения отчетов с последующем их открытием в режиме
-    предварительного просмотра, а не редактирования как раньше
-    для этого сделаны следующие изменения:
+{РЎРѕР±cС‚РІРµРЅРЅС‹Рµ РёСЃРїСЂР°РІР»РµРЅРёСЏ:
+ 1. РІ РїСЂРѕС†РµРґСѓСЂРµ class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string)
+    РґРѕР±Р°РІР»РµРЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЉРµРґРёРЅРµРЅРёСЏ РѕС‚С‡РµС‚РѕРІ СЃ РїРѕСЃР»РµРґСѓСЋС‰РµРј РёС… РѕС‚РєСЂС‹С‚РёРµРј РІ СЂРµР¶РёРјРµ
+    РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР°, Р° РЅРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР°Рє СЂР°РЅСЊС€Рµ
+    РґР»СЏ СЌС‚РѕРіРѕ СЃРґРµР»Р°РЅС‹ СЃР»РµРґСѓСЋС‰РёРµ РёР·РјРµРЅРµРЅРёСЏ:
 
-    а) изменен вызов процедуры class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string); virtual;
-       на class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); virtual;
-    б) добавлены 4 константы:
-       xlrVBASelectAllSheets и xlrVBASelectAllSheetsModule
-       xlrVBASelectOneSheets и xlrVBASelectOneSheetsModule
+    Р°) РёР·РјРµРЅРµРЅ РІС‹Р·РѕРІ РїСЂРѕС†РµРґСѓСЂС‹ class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string); virtual;
+       РЅР° class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); virtual;
+    Р±) РґРѕР±Р°РІР»РµРЅС‹ 4 РєРѕРЅСЃС‚Р°РЅС‚С‹:
+       xlrVBASelectAllSheets Рё xlrVBASelectAllSheetsModule
+       xlrVBASelectOneSheets Рё xlrVBASelectOneSheetsModule
 
- 2. добавлены изменения для совместимости с Delphi 2009/2010
-    (при апгрейде с D7 нужно изменить в .dfm свойство DataExportMode с xdmDDE на xdmVariant)
+ 2. РґРѕР±Р°РІР»РµРЅС‹ РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ Delphi 2009/2010
+    (РїСЂРё Р°РїРіСЂРµР№РґРµ СЃ D7 РЅСѓР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ РІ .dfm СЃРІРѕР№СЃС‚РІРѕ DataExportMode СЃ xdmDDE РЅР° xdmVariant)
 
- 3. добавлены изменения для совместимости с Delphi XE2 with Update 1-2-3-4 (возможно и далее - проверить)
-    В разделе initialization добавлены строки
+ 3. РґРѕР±Р°РІР»РµРЅС‹ РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ Delphi XE2 with Update 1-2-3-4 (РІРѕР·РјРѕР¶РЅРѕ Рё РґР°Р»РµРµ - РїСЂРѕРІРµСЂРёС‚СЊ)
+    Р’ СЂР°Р·РґРµР»Рµ initialization РґРѕР±Р°РІР»РµРЅС‹ СЃС‚СЂРѕРєРё
     $IF CompilerVersion >= 23
      $IF DECLARED(System.Variants.DispatchUnsignedAsSigned)
        System.Variants.DispatchUnsignedAsSigned := True;
      $IFEND
     $IFEND
-    Изменения понадобились, когда после перевода проекта под Delphi XE2 with Update 4
-    при открытии отчётов стала выдавать ошибку (в MS Excel 2010):
-    "Не удается очистить буфер обмена. Возможно, буфер обмена используется другим приложением".
-    Версия, откомпилированная под XE - никаких ошибок не выдавала.
-    Т.е. никто буфер обмена как-будто не блокирует.
-    Под отладкой нашёл место в исходниках, где падает (модуль xlEngine.pas):
+    РР·РјРµРЅРµРЅРёСЏ РїРѕРЅР°РґРѕР±РёР»РёСЃСЊ, РєРѕРіРґР° РїРѕСЃР»Рµ РїРµСЂРµРІРѕРґР° РїСЂРѕРµРєС‚Р° РїРѕРґ Delphi XE2 with Update 4
+    РїСЂРё РѕС‚РєСЂС‹С‚РёРё РѕС‚С‡С‘С‚РѕРІ СЃС‚Р°Р»Р° РІС‹РґР°РІР°С‚СЊ РѕС€РёР±РєСѓ (РІ MS Excel 2010):
+    "РќРµ СѓРґР°РµС‚СЃСЏ РѕС‡РёСЃС‚РёС‚СЊ Р±СѓС„РµСЂ РѕР±РјРµРЅР°. Р’РѕР·РјРѕР¶РЅРѕ, Р±СѓС„РµСЂ РѕР±РјРµРЅР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґСЂСѓРіРёРј РїСЂРёР»РѕР¶РµРЅРёРµРј".
+    Р’РµСЂСЃРёСЏ, РѕС‚РєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅР°СЏ РїРѕРґ XE - РЅРёРєР°РєРёС… РѕС€РёР±РѕРє РЅРµ РІС‹РґР°РІР°Р»Р°.
+    Рў.Рµ. РЅРёРєС‚Рѕ Р±СѓС„РµСЂ РѕР±РјРµРЅР° РєР°Рє-Р±СѓРґС‚Рѕ РЅРµ Р±Р»РѕРєРёСЂСѓРµС‚.
+    РџРѕРґ РѕС‚Р»Р°РґРєРѕР№ РЅР°С€С‘Р» РјРµСЃС‚Рѕ РІ РёСЃС…РѕРґРЅРёРєР°С…, РіРґРµ РїР°РґР°РµС‚ (РјРѕРґСѓР»СЊ xlEngine.pas):
     IRange.Rows.Item[1, EmptyParam].Insert(TOLEEnum(xlShiftDown));
-    Дело оказалось в баге Delphi XE2, которую всё обещают исправить.
-    Но есть временный способ, который в данном случае мне и помог (самое последнее сообщение):
+    Р”РµР»Рѕ РѕРєР°Р·Р°Р»РѕСЃСЊ РІ Р±Р°РіРµ Delphi XE2, РєРѕС‚РѕСЂСѓСЋ РІСЃС‘ РѕР±РµС‰Р°СЋС‚ РёСЃРїСЂР°РІРёС‚СЊ.
+    РќРѕ РµСЃС‚СЊ РІСЂРµРјРµРЅРЅС‹Р№ СЃРїРѕСЃРѕР±, РєРѕС‚РѕСЂС‹Р№ РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РјРЅРµ Рё РїРѕРјРѕРі (СЃР°РјРѕРµ РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ):
     https://forums.embarcadero.com/thread.jspa?threadID=63416
     http://docwiki.embarcadero.com/Libraries/en/System.Variants.DispatchUnsignedAsSigned
 
-(и поставлен комментарий //изменено GoldMedium)}
+(Рё РїРѕСЃС‚Р°РІР»РµРЅ РєРѕРјРјРµРЅС‚Р°СЂРёР№ //РёР·РјРµРЅРµРЅРѕ GoldMedium)}
 
 {*******************************************************************}
 {                                                                   }
@@ -392,10 +392,10 @@ type
     procedure ReportTo(const WorkbookName: string; const NewWorkbookName: string = ''); virtual;
     {$IFNDEF XLR_BCB}
     procedure Report(Workbook, ExcelApp: OLEVariant; const NewWorkbookName: string = ''); reintroduce; overload;
-    class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); virtual; //изменено GoldMedium
+    class procedure MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); virtual; //РёР·РјРµРЅРµРЅРѕ GoldMedium
     {$ENDIF}
     property DataExportMode: TxlDataExportMode read FDataMode
-      write FDataMode default xdmVariant; //изменено GoldMedium - D2009/D2010
+      write FDataMode default xdmVariant; //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
     property Options: TxlReportOptionsSet read FOptions write SetOptions
       default [xroDisplayAlerts, xroAutoOpen];
     property MultySheetIndex: integer read FMultiSheetIndex;
@@ -699,7 +699,7 @@ const
     '  Application.Goto TargetBook.Worksheets(1).Cells(1, 1)' + vbCR +
     'End Sub' + vbCR;
 
-  //изменено GoldMedium - старт
+  //РёР·РјРµРЅРµРЅРѕ GoldMedium - СЃС‚Р°СЂС‚
   xlrVBASelectAllSheets = 'xlrSelectAllSheets';
   xlrVBASelectAllSheetsModule =
     'Public Sub xlrSelectAllSheets(Wbks As Variant)' + vbCR +
@@ -734,7 +734,7 @@ const
     '     Then SheetName = Wbk.Sheets(1).Name' + vbCR +
     '  Wbk.Sheets(SheetName).Select' + vbCR +
     'End Sub' + vbCR;
-  //изменено GoldMedium - финиш
+  //РёР·РјРµРЅРµРЅРѕ GoldMedium - С„РёРЅРёС€
 
   xlrVBAReportOptionsSubName = 'xlrReportOptions';
   xlrVBAApplyFormatsSubName = 'xlrApplyFormats';
@@ -1356,7 +1356,7 @@ type
     function CheckBufferSize: boolean;
     procedure WriteBlank;
     // procedure WriteSkip;
-    procedure WriteString(const s: String); //изменено GoldMedium - D2009/D2010
+    procedure WriteString(const s: String); //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
     procedure WriteNumber(const n: double);
     procedure WriteBool(const b: boolean);
     procedure Poke(IRange: OLEVariant);
@@ -1492,10 +1492,10 @@ begin
 end;
 }
 
-procedure TxlDDEClient.WriteString(const s: String); //изменено GoldMedium - D2009/D2010
+procedure TxlDDEClient.WriteString(const s: String); //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
 var w: word;
     b: byte;
-    c: String; //изменено GoldMedium - D2009/D2010
+    c: String; //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
     ss: string;
 begin
   ss := s;
@@ -3173,7 +3173,7 @@ constructor TxlExcelReport.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FOptions := [xroDisplayAlerts, xroAutoOpen];
-  FDataMode := xdmVariant; //изменено GoldMedium - D2009/D2010
+  FDataMode := xdmVariant; //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
   {$IFNDEF XLR_VCL}
   FTempPath := xlrTempPath;
   {$ENDIF XLR_VCL}
@@ -4137,7 +4137,7 @@ procedure TxlExcelReport.RefreshParams(const ClearParams: boolean);
     while CurPos > 0 do begin
       i := CurPos + Length(xlrParam + delFldFormula);
       while {CharInSet(s[i], ['A'..'Z', 'a'..'z', '0'..'9', '.', '_'])}
-        s[i] in ['A'..'Z', 'a'..'z', '0'..'9', '.', '_'] do begin //изменено GoldMedium - D2009/D2010
+        s[i] in ['A'..'Z', 'a'..'z', '0'..'9', '.', '_'] do begin //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
         Inc(i);
         if i > Length(s) then
           Break;
@@ -4625,7 +4625,7 @@ var
       Result := TestSheetName(NameIndex + 1, Name);
     for i := Length(Result) downto 1 do
       if {CharInSet(Result[i], ['\','/','[',']','?','*', ':'])}
-        Result[i] in ['\','/','[',']','?','*', ':'] then //изменено GoldMedium - D2009/D2010
+        Result[i] in ['\','/','[',']','?','*', ':'] then //РёР·РјРµРЅРµРЅРѕ GoldMedium - D2009/D2010
         Delete(Result, i, 1);
     if Length(Result) > xlrWorksheetNameLength then
       Result := Copy(Result, 1, xlrWorksheetNameLength);
@@ -5066,7 +5066,7 @@ begin
 end;
 
 {$IFNDEF XLR_BCB}
-class procedure TxlExcelReport.MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); //изменено GoldMedium
+class procedure TxlExcelReport.MergeReports(Reports: array of TxlExcelReport; SheetPrefixes: array of string; const APreview: boolean = False); //РёР·РјРµРЅРµРЅРѕ GoldMedium
 var
   TmpOptions: TxlReportOptionsSet;
   i, hi, lo: integer;
@@ -5122,25 +5122,25 @@ begin
     DoRestrict3;
     {$ENDIF XLR_TRIAL}
   finally
-    //изменено GoldMedium - старт
+    //РёР·РјРµРЅРµРЅРѕ GoldMedium - СЃС‚Р°СЂС‚
     If APreview then
        begin
-          //Здесь запускается макрос, который выделяет все листы в книге
-          //Отключено, т.к. выделение листов теперь осуществляется макросом
+          //Р—РґРµСЃСЊ Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ РјР°РєСЂРѕСЃ, РєРѕС‚РѕСЂС‹Р№ РІС‹РґРµР»СЏРµС‚ РІСЃРµ Р»РёСЃС‚С‹ РІ РєРЅРёРіРµ
+          //РћС‚РєР»СЋС‡РµРЅРѕ, С‚.Рє. РІС‹РґРµР»РµРЅРёРµ Р»РёСЃС‚РѕРІ С‚РµРїРµСЂСЊ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РјР°РєСЂРѕСЃРѕРј
           IMdl.CodeModule.AddFromString(xlrVBASelectAllSheetsModule);
           OLEVariant(IXL).Run('XLR_MergeWbkModule.' + xlrVBASelectAllSheets, Workbooks);
-          //Запускается режим предварительного просмотра всех листов
+          //Р—Р°РїСѓСЃРєР°РµС‚СЃСЏ СЂРµР¶РёРј РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° РІСЃРµС… Р»РёСЃС‚РѕРІ
           IWbk.PrintPreview(False, xlrLCID);
-          //Убираем выделение всех листов
+          //РЈР±РёСЂР°РµРј РІС‹РґРµР»РµРЅРёРµ РІСЃРµС… Р»РёСЃС‚РѕРІ
           IMdl.CodeModule.AddFromString(xlrVBASelectOneSheetsModule);
           OLEVariant(IXL).Run('XLR_MergeWbkModule.' + xlrVBASelectOneSheets, Workbooks);
        end else ShowExcel(IXL, false, false, TOLEEnum(xlNormal), -1, -1);
-    //изменено GoldMedium - финиш
+    //РёР·РјРµРЅРµРЅРѕ GoldMedium - С„РёРЅРёС€
     if (not _VarIsEmpty(IMdl)) and (not xlrDebug) then begin
       IMdl.CodeModule.DeleteLines(1, IMdl.CodeModule.CountOfLines);
       IMdl.Collection.Remove(IMdl);
     end;
-    _Clear(IWbk); //изменено GoldMedium
+    _Clear(IWbk); //РёР·РјРµРЅРµРЅРѕ GoldMedium
     _Clear(IXL);
   end;
 end;
@@ -5163,17 +5163,17 @@ var
 
 initialization
 
-  //изменено GoldMedium - старт
-  //Только для Delphi XE2 with Update 1-2-3-4 (возможно и далее - проверить)
-  //Данная строка понадобилась, когда после перевода проекта под Delphi XE2 with Update 4
-  //при открытии отчётов стала выдавать ошибку (в MS Excel 2010):
-  //"Не удается очистить буфер обмена. Возможно, буфер обмена используется другим приложением".
-  //Версия, откомпилированная под XE - никаких ошибок не выдавала.
-  //Т.е. никто буфер обмена как-будто не блокирует.
-  //Под отладкой нашёл место в исходниках, где падает (модуль xlEngine.pas):
+  //РёР·РјРµРЅРµРЅРѕ GoldMedium - СЃС‚Р°СЂС‚
+  //РўРѕР»СЊРєРѕ РґР»СЏ Delphi XE2 with Update 1-2-3-4 (РІРѕР·РјРѕР¶РЅРѕ Рё РґР°Р»РµРµ - РїСЂРѕРІРµСЂРёС‚СЊ)
+  //Р”Р°РЅРЅР°СЏ СЃС‚СЂРѕРєР° РїРѕРЅР°РґРѕР±РёР»Р°СЃСЊ, РєРѕРіРґР° РїРѕСЃР»Рµ РїРµСЂРµРІРѕРґР° РїСЂРѕРµРєС‚Р° РїРѕРґ Delphi XE2 with Update 4
+  //РїСЂРё РѕС‚РєСЂС‹С‚РёРё РѕС‚С‡С‘С‚РѕРІ СЃС‚Р°Р»Р° РІС‹РґР°РІР°С‚СЊ РѕС€РёР±РєСѓ (РІ MS Excel 2010):
+  //"РќРµ СѓРґР°РµС‚СЃСЏ РѕС‡РёСЃС‚РёС‚СЊ Р±СѓС„РµСЂ РѕР±РјРµРЅР°. Р’РѕР·РјРѕР¶РЅРѕ, Р±СѓС„РµСЂ РѕР±РјРµРЅР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґСЂСѓРіРёРј РїСЂРёР»РѕР¶РµРЅРёРµРј".
+  //Р’РµСЂСЃРёСЏ, РѕС‚РєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅР°СЏ РїРѕРґ XE - РЅРёРєР°РєРёС… РѕС€РёР±РѕРє РЅРµ РІС‹РґР°РІР°Р»Р°.
+  //Рў.Рµ. РЅРёРєС‚Рѕ Р±СѓС„РµСЂ РѕР±РјРµРЅР° РєР°Рє-Р±СѓРґС‚Рѕ РЅРµ Р±Р»РѕРєРёСЂСѓРµС‚.
+  //РџРѕРґ РѕС‚Р»Р°РґРєРѕР№ РЅР°С€С‘Р» РјРµСЃС‚Рѕ РІ РёСЃС…РѕРґРЅРёРєР°С…, РіРґРµ РїР°РґР°РµС‚ (РјРѕРґСѓР»СЊ xlEngine.pas):
   //IRange.Rows.Item[1, EmptyParam].Insert(TOLEEnum(xlShiftDown));
-  //Дело оказалось в баге Delphi XE2, которую всё обещают исправить.
-  //Но есть временный способ, который в данном случае мне и помог (самое последнее сообщение):
+  //Р”РµР»Рѕ РѕРєР°Р·Р°Р»РѕСЃСЊ РІ Р±Р°РіРµ Delphi XE2, РєРѕС‚РѕСЂСѓСЋ РІСЃС‘ РѕР±РµС‰Р°СЋС‚ РёСЃРїСЂР°РІРёС‚СЊ.
+  //РќРѕ РµСЃС‚СЊ РІСЂРµРјРµРЅРЅС‹Р№ СЃРїРѕСЃРѕР±, РєРѕС‚РѕСЂС‹Р№ РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РјРЅРµ Рё РїРѕРјРѕРі (СЃР°РјРѕРµ РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ):
   //https://forums.embarcadero.com/thread.jspa?threadID=63416
   //http://docwiki.embarcadero.com/Libraries/en/System.Variants.DispatchUnsignedAsSigned
   { $IF CompilerVersion >= 23}
@@ -5181,7 +5181,7 @@ initialization
      //System.Variants.DispatchUnsignedAsSigned := True;
    { $IFEND}
   { $IFEND}
-  //изменено GoldMedium - финиш
+  //РёР·РјРµРЅРµРЅРѕ GoldMedium - С„РёРЅРёС€
 
   // Create Engine Option Map
   xlrOptionMap := TxlOptionMap.Create;
